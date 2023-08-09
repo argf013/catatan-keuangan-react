@@ -1,0 +1,42 @@
+.form-card {
+    width: 20em;
+    background-color:#1F2937 !important;
+    color: #9CA39A !important;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.form-card input {
+    background: #374151;
+    border: #9CA39A;
+    color: #9CA39A;
+}
+
+.form-card input:disabled {
+    background-color: #374151;
+}
+
+.form-card input::placeholder {
+    color: #9CA39A;
+}
+
+.form-card input:focus {
+    background-color: #374151;
+    color: #9CA39A;
+}
+
+.yes {
+    background-color: #374151;
+    background-color: #1F2937;
+    background-color: #9CA39A;
+    background-color: #111827 /base;
+}

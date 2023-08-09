@@ -1,0 +1,51 @@
+.transaction-item .delete-button {
+    display: none;
+}
+
+.transaction-item:hover .delete-button {
+    display: inline-block;
+}
+
+tr th {
+    color: #9CA39A !important;
+}
+
+
+.table {
+    border-radius: 10px;
+    overflow: hidden;
+    --bs-table-bg: #374151 !important;
+    --bs-table-border-color: #9CA39A !important;
+    vertical-align: middle !important;
+}
+
+.table thead {
+    background-color: #374151 !important;
+    /* Replace with your desired background color */
+}
+
+.table>:not(caption)>*>* {
+    padding-left: 1.5em !important;
+    border-color: transparent !important;
+}
+
+.table td {
+    background-color: #1F2937 !important;
+    color: #9CA39A !important;
+}
+
+.table tbody tr td:nth-child(1) {
+    color: white !important;
+    /* padding-left: 1.5em; */
+    /* Set your desired font color */
+}
+
+.table {
+    border-bottom: 0 !important;
+}
+
+/* Apply styles to table cells when hovered */
+.table tbody tr:hover td {
+    background-color: #4B5563!important; /* Set the background color for hover state */
+  }
+  

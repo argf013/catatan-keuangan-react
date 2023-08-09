@@ -1,50 +1,58 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import './CatatPengeluaran.css'
 
 function CatatPengeluaran({ onTambahPengeluaran }) {
-  const [keterangan, setKeterangan] = useState('');
-  const [pengeluaran, setPengeluaran] = useState('');
+  const [keterangan, setKeterangan] = useState("");
+  const [pengeluaran, setPengeluaran] = useState("");
 
   const handleTambahPengeluaran = () => {
     onTambahPengeluaran({
       keterangan,
-      pengeluaran: parseFloat(pengeluaran.replace(/[^\d.-]/g, '')),
+      pengeluaran: parseFloat(pengeluaran.replace(/[^\d.-]/g, "")),
     });
-    setKeterangan('');
-    setPengeluaran('');
-  };
-
-  const formatCurrency = (value) => {
-    const formatter = new Intl.NumberFormat('id-ID', {
-      style: 'currency',
-      currency: 'IDR',
-    });
-    return formatter.format(value);
+    setKeterangan("");
+    setPengeluaran("");
   };
 
   return (
-    <div className="container">
-      <h2>Catat Pengeluaran</h2>
-      <label htmlFor="keteranganPengeluaran">Keterangan:</label>
-      <input
-        type="text"
-        id="keteranganPengeluaran"
-        value={keterangan}
-        onChange={(e) => setKeterangan(e.target.value)}
-        placeholder="Contoh: Untuk Beli Makan"
-      />
-      <label htmlFor="pengeluaran">Pengeluaran:</label>
-      <input
-        type="text"
-        id="pengeluaran"
-        value={pengeluaran}
-        onChange={(e) => setPengeluaran(e.target.value)}
-      />
-      <button onClick={handleTambahPengeluaran}>Tambah</button>
-    </div>
+    <form className="card mx-auto p-3 form-card">
+      <div className="mb-3">
+        <label htmlFor="keteranganPengeluaran" className="form-label">
+          Keterangan:
+        </label>
+        <input
+          type="text"
+          className="form-control"
+          id="keteranganPengeluaran"
+          value={keterangan}
+          onChange={(e) => setKeterangan(e.target.value)}
+          placeholder="Contoh: Untuk Beli Makan"
+        />
+      </div>
+      <div className="mb-3">
+        <label htmlFor="pengeluaran" className="form-label">
+          Pengeluaran:
+        </label>
+        <input
+          type="number"
+          className="form-control"
+          id="pengeluaran"
+          value={pengeluaran}
+          onChange={(e) => setPengeluaran(e.target.value)}
+          placeholder="0"
+        />
+      </div>
+      <button
+        type="submit"
+        className="btn btn-primary"
+        onClick={handleTambahPengeluaran}
+      >
+        Tambah
+      </button>
+    </form>
   );
 }
 
 export default CatatPengeluaran;
-

@@ -1,9 +1,11 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect } from 'react';
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
+import React, { useState, useEffect } from "react";
 
 function SaldoAwal({ onSaveSaldo }) {
-  const [saldoAwal, setSaldoAwal] = useState('');
+  const [saldoAwal, setSaldoAwal] = useState("");
   const [isSaldoSaved, setIsSaldoSaved] = useState(false);
 
   const handleSimpanSaldo = () => {
@@ -13,7 +15,7 @@ function SaldoAwal({ onSaveSaldo }) {
   };
 
   const handleResetSaldo = () => {
-    setSaldoAwal('');
+    setSaldoAwal("");
     setIsSaldoSaved(false);
     localStorage.removeItem("saldoAwal");
     localStorage.removeItem("transaksi");
@@ -28,22 +30,31 @@ function SaldoAwal({ onSaveSaldo }) {
   }, []);
 
   return (
-    <div className="container">
-      <h2>Saldo Awal</h2>
-      <label htmlFor="saldoAwal">Saldo Awal:</label>
-      <input
-        type="number"
-        id="saldoAwal"
-        value={saldoAwal}
-        onChange={(e) => setSaldoAwal(e.target.value)}
-        disabled={isSaldoSaved}
-      />
+    <form className="card form-card mx-auto p-3 mb-3">
+      <div className="mb-3">
+        <label htmlFor="saldoAwal" className="form-label">
+          Saldo Awal:
+        </label>
+        <input
+          type="number"
+          className="form-control"
+          id="saldoAwal"
+          value={saldoAwal}
+          onChange={(e) => setSaldoAwal(e.target.value)}
+          disabled={isSaldoSaved}
+          placeholder={isSaldoSaved ? "Disabled" : "0"}
+        />
+      </div>
       {isSaldoSaved ? (
-        <button onClick={handleResetSaldo}>Reset</button>
+        <button className="btn btn-secondary" onClick={handleResetSaldo}>
+          Reset
+        </button>
       ) : (
-        <button onClick={handleSimpanSaldo}>Simpan</button>
+        <button className="btn btn-primary" onClick={handleSimpanSaldo}>
+          Simpan
+        </button>
       )}
-    </div>
+    </form>
   );
 }
 

@@ -63,12 +63,20 @@ function App() {
     return saldoAwal - totalPengeluaran;
   };
 
+  const handleDeleteTransaction = (index) => {
+    const updatedTransaksi = [...transaksi];
+    updatedTransaksi.splice(index, 1);
+    setTransaksi(updatedTransaksi);
+    localStorage.setItem("transaksi", JSON.stringify(updatedTransaksi));
+  };
+  
+
   return (
     <div>
-      <h1>Aplikasi Keuangan</h1>
+      <h1 className='text-center mb-3 p-3 title_app'>Aplikasi Penghitung Pengeluaran</h1>
       <SaldoAwal onSaveSaldo={handleSimpanSaldo} />
       <CatatPengeluaran onTambahPengeluaran={handleTambahPengeluaran} />
-      <DaftarTransaksi transaksi={transaksi} total={getTotalSaldo()} />
+      <DaftarTransaksi transaksi={transaksi} total={getTotalSaldo()} onDeleteTransaction={handleDeleteTransaction} />
     </div>
   );
 }
