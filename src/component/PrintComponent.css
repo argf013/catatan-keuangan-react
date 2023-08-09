@@ -1,0 +1,11 @@
+.printComponent {
+    background-color: #111827;
+    height: 100vh;
+}
+
+.footer {
+    position: absolute;
+    bottom: 10px; /* Adjust this value to control the distance from the bottom */
+    right: 10px; /* Adjust this value to control the distance from the right */
+    color: white;
+}
