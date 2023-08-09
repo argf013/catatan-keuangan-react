@@ -53,12 +53,6 @@ function CatatPengeluaran({ onTambahPengeluaran }) {
           Tambah
         </button>
       </form>
-
-      <div className="text-center mt-3">
-        <button className="mx-auto btn btn-primary" style={{ width: "20em"}}>
-          Daftar Transaksi
-        </button>
-      </div>
     </>
   );
 }

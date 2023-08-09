@@ -1,7 +1,5 @@
-.form-card {
-    width: 20em;
-    background-color:#1F2937 !important;
-    color: #9CA39A !important;
+.modal-dialog .modal-content {
+background-color: #111827!important;
 }
 
 input::-webkit-outer-spin-button,
@@ -10,34 +8,31 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
+.btn-close {
+    color: #9CA39A!important;
+}
+
 /* Firefox */
 input[type=number] {
     appearance: textfield;
   -moz-appearance: textfield;
 }
 
-.form-card input {
+.modal-content input {
     background: #374151;
     border: #9CA39A;
     color: #9CA39A;
 }
 
-.form-card input:disabled {
+.modal-content input:disabled {
     background-color: #374151;
 }
 
-.form-card input::placeholder {
+.modal-content input::placeholder {
     color: #9CA39A;
 }
 
-.form-card input:focus {
+.modal-content input:focus {
     background-color: #374151;
     color: #9CA39A;
-}
-
-.yes {
-    background-color: #374151;
-    background-color: #1F2937;
-    background-color: #9CA39A;
-    background-color: #111827 /base;
 }
