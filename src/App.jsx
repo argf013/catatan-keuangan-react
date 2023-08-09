@@ -63,6 +63,7 @@ function App() {
   return (
     <div>
       <DaftarTransaksi
+        transaction={transaksi}
         total={getTotalSaldo()}
         onDeleteTransaction={handleDeleteTransaction}
         onTambahPengeluaran={handleTambahPengeluaran}

@@ -7,7 +7,7 @@ import PrintComponent from "./PrintComponent";
 import TransaksiModal from "./modal/TransaksiModal";
 import ModalSaldo from "./modal/ModalSaldo";
 
-function DaftarTransaksi({ total, onDeleteTransaction, onTambahPengeluaran }) {
+function DaftarTransaksi({ transaction, total, onDeleteTransaction, onTambahPengeluaran }) {
   const printComponentRef = useRef();
   const [saldoAwal, setSaldoAwal] = useState(0);
   const [transaksi, setTransaksi] = useState([]);
@@ -109,7 +109,7 @@ function DaftarTransaksi({ total, onDeleteTransaction, onTambahPengeluaran }) {
               </tr>
             </thead>
             <tbody>
-              {transaksi.map((item, index) => (
+              {transaction.map((item, index) => (
                 <tr key={index}>
                   <td>{item.tanggal}</td>
                   <td>
