@@ -6,15 +6,27 @@ import ReactToPrint from "react-to-print";
 import PrintComponent from "./PrintComponent";
 import TransaksiModal from "./modal/TransaksiModal";
 import ModalSaldo from "./modal/ModalSaldo";
+import ConfirmationModal from "./alert/ConfirmationAlert";
 
-function DaftarTransaksi({ transaction, total, onDeleteTransaction, onTambahPengeluaran }) {
+function DaftarTransaksi({
+  transaction,
+  total,
+  onDeleteTransaction,
+  onTambahPengeluaran,
+}) {
   const printComponentRef = useRef();
-  const [saldoAwal, setSaldoAwal] = useState(0);
+  const [saldoAwal, setSaldoAwal] = useState("");
   const [transaksi, setTransaksi] = useState([]);
+  const [saldoAwalTersimpan, setSaldoAwalTersimpan] = useState(false);
+  const [isSaldoAwalFilled, setIsSaldoAwalFilled] = useState(false);
 
   useEffect(() => {
     const storedSaldo = parseFloat(localStorage.getItem("saldoAwal")) || 0;
     setSaldoAwal(storedSaldo);
+
+    const isSaldoTersimpan = storedSaldo !== 0;
+    setSaldoAwalTersimpan(isSaldoTersimpan);
+    setIsSaldoAwalFilled(isSaldoTersimpan);
 
     const storedTransaksi = JSON.parse(localStorage.getItem("transaksi")) || [];
     setTransaksi(storedTransaksi);
@@ -40,19 +52,13 @@ function DaftarTransaksi({ transaction, total, onDeleteTransaction, onTambahPeng
     localStorage.setItem("saldoAwal", saldo);
   };
 
-  const handleTambahPengeluaran = (pengeluaranData) => {
-    const tanggal = getCurrentDate();
-    const updatedTransaksi = [...transaksi, { ...pengeluaranData, tanggal }];
-    setTransaksi(updatedTransaksi);
-    localStorage.setItem("transaksi", JSON.stringify(updatedTransaksi));
-  };
-
-  const getCurrentDate = () => {
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = (now.getMonth() + 1).toString().padStart(2, "0");
-    const day = now.getDate().toString().padStart(2, "0");
-    return `${day}/${month}/${year}`;
+  const handleResetSaldoAwal = () => {
+    setSaldoAwal(0);
+    localStorage.setItem("saldoAwal", 0);
+    setSaldoAwalTersimpan(false);
+    setTransaksi([]);
+    localStorage.setItem("transaksi", JSON.stringify([]));
+    window.location.reload();
   };
 
   return (
@@ -64,18 +70,31 @@ function DaftarTransaksi({ transaction, total, onDeleteTransaction, onTambahPeng
             className="btn btn-primary"
             style={{ marginRight: "0.5em" }}
             data-bs-toggle="modal"
-            data-bs-target="#exampleModal"
+            data-bs-target="#saldoAwalModal"
+            onClick={saldoAwalTersimpan}
+            disabled={saldoAwalTersimpan}
           >
-            Tambah Transaksi
+            Input Saldo Awal
           </button>
           <button
             className="btn btn-primary"
             style={{ marginRight: "0.5em" }}
             data-bs-toggle="modal"
-            data-bs-target="#saldoAwalModal"
+            data-bs-target="#exampleModal"
+            disabled={!isSaldoAwalFilled}
           >
-            Input Saldo Awal
+            Tambah Transaksi
           </button>
+
+          <ConfirmationModal
+            confirmText="Reset Saldo Awal"
+            onConfirm={handleResetSaldoAwal}
+            denyText="Cancel"
+            title="Apakah Anda yakin ingin mereset saldo awal? Ini akan menghapus semua
+            data transaksi."
+            disabled={!isSaldoAwalFilled}
+          />
+
           <ReactToPrint
             trigger={() => (
               <button className="btn btn-primary">Ekspor Data</button>
@@ -121,35 +140,34 @@ function DaftarTransaksi({ transaction, total, onDeleteTransaction, onTambahPeng
                       : "N/A"}
                   </td>
                   <td>{item.keterangan || "Tidak ada keterangan"}</td>
+
                   <td>
-                    <a href="" onClick={() => onDeleteTransaction(index)}>
-                      Delete
-                    </a>
+                    <ConfirmationModal
+                      confirmText="Delete"
+                      onConfirm={() => onDeleteTransaction(index)}
+                    />
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
-
-          <h4 className="title_app d-flex justify-content-end">
-            Total:&ensp;
-            <span id="totalSaldo">
-              {total.toLocaleString("id-ID", {
-                style: "currency",
-                currency: "IDR",
-              })}
-            </span>
-          </h4>
         </>
       )}
+      <h4 className="title_app d-flex justify-content-end">
+        Total:&ensp;
+        <span id="totalSaldo">
+          {isSaldoAwalFilled
+            ? total.toLocaleString("id-ID", {
+                style: "currency",
+                currency: "IDR",
+              })
+            : "N/A"}
+        </span>
+      </h4>
 
-      <TransaksiModal
-        onTambahPengeluaran={onTambahPengeluaran}
-      />
+      <TransaksiModal onTambahPengeluaran={onTambahPengeluaran} />
 
-      <ModalSaldo
-      onSaveSaldo={handleSimpanSaldo}
-      />
+      <ModalSaldo onSaveSaldo={handleSimpanSaldo} />
     </div>
   );
 }

@@ -4,21 +4,14 @@ import React, { useState, useEffect } from "react";
 import  './ModalSaldo.css'
 
 function ModalSaldo({ onSaveSaldo }) {
-  const [saldoAwal, setSaldoAwal] = useState(0);
+  const [saldoAwal, setSaldoAwal] = useState("");
   const [isSaldoSaved, setIsSaldoSaved] = useState(false);
 
   const handleSimpanSaldo = () => {
     onSaveSaldo(parseFloat(saldoAwal));
     setIsSaldoSaved(true);
     localStorage.setItem("isSaldoSaved", true);
-  };
-
-  const handleResetSaldo = () => {
-    setSaldoAwal("");
-    setIsSaldoSaved(false);
-    localStorage.removeItem("saldoAwal");
-    localStorage.removeItem("transaksi");
-    localStorage.removeItem("isSaldoSaved");
+    window.location.reload();
   };
 
   useEffect(() => {
@@ -53,21 +46,10 @@ function ModalSaldo({ onSaveSaldo }) {
               id="saldoAwal"
               value={saldoAwal}
               onChange={(e) => setSaldoAwal(e.target.value)}
-              disabled={isSaldoSaved}
-              placeholder={isSaldoSaved ? "Disabled" : "0"}
+              placeholder="0"
             />
           </div>
           <div className="modal-footer">
-            {isSaldoSaved ? (
-              <button
-                type="button"
-                className="btn btn-secondary"
-                onClick={handleResetSaldo}
-                data-bs-dismiss="modal"
-              >
-                Reset
-              </button>
-            ) : (
               <button
                 type="button"
                 className="btn btn-primary"
@@ -76,7 +58,6 @@ function ModalSaldo({ onSaveSaldo }) {
               >
                 Simpan
               </button>
-            )}
             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">
               Close
             </button>

@@ -15,6 +15,7 @@ function TransaksiModal({ onTambahPengeluaran }) {
       keterangan,
       pengeluaran: parseFloat(pengeluaran.replace(/[^\d.-]/g, "")),
     });
+    window.location.reload();
     setKeterangan("");
     setPengeluaran("");
   };
